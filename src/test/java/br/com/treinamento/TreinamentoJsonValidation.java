@@ -35,14 +35,12 @@ public class TreinamentoJsonValidation {
             .extract().as(People.class, ObjectMapperType.GSON);
     }
 
-
     @Test
     public void schemaValidatorWithJsonSchemaValidator() {
         given()
         .when()
             .get("people/1")
         .then()
-            .log().all()
-            .extract().as(People.class, ObjectMapperType.GSON);
+            .assertThat().body(matchesJsonSchemaInClasspath("people1.json"));
     }
 }
